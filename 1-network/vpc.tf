@@ -23,3 +23,12 @@ module "subnets" {
   subnets          = local.subnets
   secondary_ranges = local.secondary_ranges
 }
+
+
+module "vpc_peering" {
+  source   = "terraform-google-modules/network/google//modules/network-peering"
+  prefix                    = "vpc-peer" # example: vpc-peer-hub-vpc-prd-vpc
+  local_network             = module.vpc.network_self_link
+  peer_network              = "https://www.googleapis.com/compute/v1/projects/${var.google_project_id}/global/networks/default"
+  export_peer_custom_routes = true
+}

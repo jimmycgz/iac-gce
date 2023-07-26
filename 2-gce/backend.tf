@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "terraform-state-bt-demo-services-dev"
-    prefix = "2-gce"
+    bucket = "bkt-terraform-state-demo"
+    prefix = "tf-state/iac-gce/2-gce"
   }
 }

@@ -9,6 +9,12 @@ variable "location" {
   default     = ""
 }
 
+variable "force_destroy_state_bucket" {
+  description = "If set to true, the bucket can be destroyed by terraform, or will be protected"
+  type        = bool
+  default     = false
+}
+
 variable "uniform_access" {
   description = "If set to true, all objects in the GCS bucket will have the same access levels (uniform). Set this to 'false' to be able to specify distinct access-levels to individual objects explicitly (fine-grained). Cannot be set to 'false' if 90 days have passed with the 'true' setting.  Considered 'true' if 'var.bucket_name' is a domain name."
   type        = bool

@@ -11,7 +11,7 @@ resource "google_storage_bucket" "gcs_bucket" {
   location                    = var.location
   uniform_bucket_level_access = var.uniform_access
   labels                      = var.labels
-  force_destroy               = true
+  force_destroy = var.force_destroy_state_bucket # By default it's false to protect the bucket which may already have state files !!
   versioning {
     enabled = var.enable_versioning
   }

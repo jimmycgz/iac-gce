@@ -1,4 +1,4 @@
-module "hub_firewall_rules" {
+module "demo_firewall_rules" {
   source       = "terraform-google-modules/network/google//modules/firewall-rules"
   version      = "5.2.0"
   project_id   = local.project_id
@@ -23,7 +23,7 @@ module "gce_vm_linux" {
   image_family  = "ubuntu-2004-lts" # latest "ubuntu-2004-bionic-v2023xxxx"
   image_project = "ubuntu-os-cloud"
   # machine_type  = "n2-standard-4"
-  machine_type           = "c3-highcpu-8"
+  machine_type           = "e2-micro"
   boot_disk_size         = 20
   instance_name          = local.jump_name_linux
   create_service_account = false
@@ -36,7 +36,7 @@ module "gce_vm_linux" {
   instance_sa_scope = local.instance_sa_scope
   instance_tags     = ["jumpbox-ssh"]
   labels            = local.common_labels
-  # metadata_startup_script = local.metadata_startup_script
+  metadata_startup_script = local.metadata_startup_script
 }
 
 output "vm_ssh_command_linux" {

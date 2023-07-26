@@ -1,4 +1,4 @@
-# IaC to Setup Hub under Org
+# IaC to Setup GCE
 
 ## Feature List
 - [X] Nomenclature
@@ -7,9 +7,6 @@
 - [X] Network: Firewall rules
 - [ ] Network: VPN to on-prem, and routing
 - [ ] IAM 
-
-## Refer to next model
-* `3-env`: Create resources for different environments
 
 ## Prerequisites
 * Follow [Bootstrap Guide](../0-bootstrap/README.md) to finish/update the bootstrap
@@ -26,10 +23,38 @@ ln -s ../generic.auto.tfvars generic.auto.tfvars
 ln -s ../generic-versions.tf versions.tf
 ```
 
+### Auth Terraform to manage GCP resources
+
+Recommend using a dedicated a service account for Terraform, so you'll expect same behavior when other members in your team doing this same way.
+
+You may auth via your own user account to troubleshoot the permissions of the service account.
+```
+export GOOGLE_APPLICATION_CREDENTIALS= && gcloud auth application-default login --disable-quota-project
+```
+
 ### Run Terraform
 ```
 terraform init
 terraform plan
+```
+
+## Test the application
+
+* Access the nginx via ssh tunnel
+How to setup ssh tunnel via gcloud ssh command? I have provisioned a gce with a nginx, and opened firewall rules for port 80 and 443, and I want to access at my local laptop via 127.0.0.1:8080
+```
+gcloud compute ssh --project=jmy-png-sbx-2023 --zone=us-central1-a hub-global-jump-linux-01 -- -L 8080:localhost:80
+```
+
+Refer to: https://cloud.google.com/community/tutorials/ssh-port-forwarding-set-up-load-testing-on-compute-engine
+```
+To set up server side SSH port forwarding as shown in the examples above, execute the following command on your client machine (-L indicates local and -R indicates remote).
+
+ssh -L A:127.0.0.1:B [USERNAME]@[SERVER]
+
+Similarly, the following command sets up the client side port forwarding.
+
+ssh -R B:127.0.0.1:A [USERNAME]@[SERVER]
 ```
 
 ## Tips
