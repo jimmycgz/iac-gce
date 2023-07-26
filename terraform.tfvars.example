@@ -1,4 +1,6 @@
-google_project_id = "devx-jmy-demo" # your project id
+# Generic values shared across envs/folders
+google_project_id = "your-sbx-2023"
+
 vpc_network_name  = "dev-bt-demo-vpc"
 
 labels = {
