@@ -41,7 +41,7 @@ terraform plan
 ## Test the application
 
 * Access the nginx via ssh tunnel
-How to setup ssh tunnel via gcloud ssh command? I have provisioned a gce with a nginx, and opened firewall rules for port 80 and 443, and I want to access at my local laptop via 127.0.0.1:8080
+How to setup ssh tunnel via gcloud ssh command? I have provisioned a gce with a nginx, and opened firewall rules for port 80 and 443, and I want to access at my local laptop via localhost:8080
 ```
 gcloud compute ssh --project=jmy-png-sbx-2023 --zone=us-central1-a hub-global-jump-linux-01 -- -L 8080:localhost:80
 ```
