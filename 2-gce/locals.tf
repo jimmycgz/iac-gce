@@ -1,7 +1,7 @@
 data "google_compute_subnetwork" "my-subnetwork" {
-  name   = "${local.vpc_network_name}-subnet-01"
-  region = local.region
-  project =local.project_id
+  name    = "${local.vpc_network_name}-subnet-01"
+  region  = local.region
+  project = local.project_id
 }
 
 locals {
@@ -10,7 +10,7 @@ locals {
   resource_prefix = "${local.bu_name}-${local.env}"
 
   region     = "us-central1"
-  project_id = var.google_project_id 
+  project_id = var.google_project_id
 
   jump_name_linux  = "${local.resource_prefix}-jump-linux-01"
   jump_image_linux = "projects/ubuntu-os-cloud/global/images/family/ubuntu-2004-lts"
@@ -65,7 +65,7 @@ locals {
       target_tags             = null
       target_service_accounts = null
     },
-        {
+    {
       allow = [{
         ports    = ["80", "443"]
         protocol = "tcp"
@@ -94,7 +94,7 @@ locals {
         service nginx start
   SCRIPT
 
-/*
+  /*
   # metadata_startup_script = <<SCRIPT
     sudo apt-get remove docker docker-engine docker.io containerd runc
     sudo apt-get update

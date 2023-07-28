@@ -33,9 +33,9 @@ module "gce_vm_linux" {
   instance_zone          = "${local.region}-a"
   assign_pub_ip          = false
   # pub_ip                 = local.pub_ip_name_jump_linux == null ? "" : "${google_compute_address.pub_ip_jump_linux[0].address}"
-  instance_sa_scope = local.instance_sa_scope
-  instance_tags     = ["jumpbox-ssh"]
-  labels            = local.common_labels
+  instance_sa_scope       = local.instance_sa_scope
+  instance_tags           = ["jumpbox-ssh"]
+  labels                  = local.common_labels
   metadata_startup_script = local.metadata_startup_script
 }
 

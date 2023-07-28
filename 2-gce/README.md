@@ -16,7 +16,7 @@
 
 ### Create below symbolic links on each folder to use them
 ```
-cd $PROJECT_UPPER_FOLDER/2-hub
+cd $PROJECT_UPPER_FOLDER/2-gce
 rm generic.auto.tfvars confidential.auto.tfvars confidential-variables.tf generic-variables.tf versions.tf
 ln -s ../generic-variables.tf generic-variables.tf
 ln -s ../generic.auto.tfvars generic.auto.tfvars
@@ -36,12 +36,14 @@ export GOOGLE_APPLICATION_CREDENTIALS= && gcloud auth application-default login 
 ```
 terraform init
 terraform plan
+terraform apply
 ```
 
 ## Test the application
 
 * Access the nginx via ssh tunnel
-How to setup ssh tunnel via gcloud ssh command? I have provisioned a gce with a nginx, and opened firewall rules for port 80 and 443, and I want to access at my local laptop via localhost:8080
+
+You'll get below answer if ask ChatGPT: How to setup ssh tunnel via gcloud ssh command? I have provisioned a gce with nginx, with firewall rules for port 80 and 443, and I want to access the nginx on browser from my local laptop via localhost:8080
 ```
 gcloud compute ssh --project=jmy-png-sbx-2023 --zone=us-central1-a hub-global-jump-linux-01 -- -L 8080:localhost:80
 ```
@@ -62,24 +64,13 @@ ssh -R B:127.0.0.1:A [USERNAME]@[SERVER]
 ### Use Remote State as data source
 1. Generate data source file like `data-bootstrap.tf` at folder `remote-state`
 1. Create symbolic link at your project folder where needs the data source
-  ```
-  rm data-bootstrap.tf data-org.tf
-  ln -s ../remote-state/data-bootstrap.tf data-bootstrap.tf
-  ln -s ../remote-state/data-org.tf data-org.tf
-  ...
-  ```
+    ```
+    rm data-bootstrap.tf data-org.tf
+    ln -s ../remote-state/data-bootstrap.tf data-bootstrap.tf
+    ln -s ../remote-state/data-org.tf data-org.tf
+    ...
+    ```
 1. Use the data source at your code block like below
-  ```
-  org_id = data.terraform_remote_state.bootstrap.outputs.org_id
-  ```
-
-## Troubleshooting
-
-* Increase your project quota
-```
-│ Error: Error waiting for creating folder: Error code 8, message: The project cannot be created because you have exceeded your allotted project quota.
-│ 
-│   with module.my_projects["prj-proj12a"].google_project.main,
-│   on ../modules/projects/main.tf line 26, in resource "google_project" "main":
-│   26: resource "google_project" "main" {
-```
+    ```
+    org_id = data.terraform_remote_state.bootstrap.outputs.org_id
+    ```

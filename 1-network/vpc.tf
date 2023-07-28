@@ -26,7 +26,7 @@ module "subnets" {
 
 
 module "vpc_peering" {
-  source   = "terraform-google-modules/network/google//modules/network-peering"
+  source                    = "terraform-google-modules/network/google//modules/network-peering"
   prefix                    = "vpc-peer" # example: vpc-peer-hub-vpc-prd-vpc
   local_network             = module.vpc.network_self_link
   peer_network              = "https://www.googleapis.com/compute/v1/projects/${var.google_project_id}/global/networks/default"
